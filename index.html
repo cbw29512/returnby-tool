@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f1e8" />
+    <meta name="color-scheme" content="light" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="ReturnBy" />
+    <meta name="google-site-verification" content="KU4s3W5bjy81CBiQSl8nSk_-t20-QcciCeZDQrzYO9g" />
+    <meta
+      name="description"
+      content="Free return deadline calculator and refund tracker. Estimate a return-by date, add a calendar reminder, and save returns privately on your device—no signup required."
+    />
+    <link rel="canonical" href="https://returnby-tool.netlify.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ReturnBy" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://returnby-tool.netlify.app/" />
+    <meta property="og:title" content="ReturnBy — Free Return Deadline Calculator" />
+    <meta
+      property="og:description"
+      content="Estimate a return deadline, add a reminder, and track refunds privately on your device. No signup or receipt upload."
+    />
+    <meta property="og:image" content="https://returnby-tool.netlify.app/og.png" />
+    <meta property="og:image:width" content="1536" />
+    <meta property="og:image:height" content="1024" />
+    <meta property="og:image:alt" content="ReturnBy return deadline calculator preview" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ReturnBy — Free Return Deadline Calculator" />
+    <meta
+      name="twitter:description"
+      content="Estimate a return deadline, add a reminder, and track refunds privately on your device."
+    />
+    <meta name="twitter:image" content="https://returnby-tool.netlify.app/og.png" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css?v=20260909-1" />
+    <title>Free Return Deadline Calculator & Refund Tracker | ReturnBy</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "@id": "https://returnby-tool.netlify.app/#app",
+            "name": "ReturnBy",
+            "url": "https://returnby-tool.netlify.app/",
+            "description": "A free return deadline calculator and private refund tracker that works in the browser without an account.",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Any",
+            "browserRequirements": "Requires a modern web browser with JavaScript enabled for calculations and saved returns.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://returnby-tool.netlify.app/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How does ReturnBy calculate a return deadline?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "ReturnBy adds the return-window length you enter to the purchase or delivery date you choose. The result is an estimate because retailers can count days differently and apply exclusions or special rules."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does ReturnBy upload my purchase information?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. ReturnBy does not require an account or receipt upload. Saved returns are stored in your browser on your device."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can ReturnBy remind me before a return deadline?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. ReturnBy can download a calendar reminder file that you can add to the calendar app you already use."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#calculator">Skip to return calculator</a>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="ReturnBy home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>ReturnBy</span>
+      </a>
+      <nav class="header-links" aria-label="Primary navigation">
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a class="support-link" href="https://buymeacoffee.com/divclass016" target="_blank" rel="noopener noreferrer">
+          Support this tool
+        </a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">Free return deadline calculator</p>
+        <h1 id="page-title">Know the date.<br /><em>Keep your money.</em></h1>
+        <p class="intro-copy">
+          Estimate the last day to return a purchase, add a calendar reminder, and track the refund—without creating an account.
+        </p>
+        <div class="trust-row" aria-label="Privacy details">
+          <span><i aria-hidden="true"></i> Stays on this device</span>
+          <span><i aria-hidden="true"></i> No signup</span>
+          <span><i aria-hidden="true"></i> No receipt upload</span>
+        </div>
+      </section>
+
+      <section class="calculator-shell" id="calculator" aria-label="Return deadline calculator">
+        <form id="return-form" class="return-form" novalidate>
+          <div class="form-heading">
+            <span class="step-number">01</span>
+            <div>
+              <h2>What might you return?</h2>
+              <p>It takes about 20 seconds.</p>
+            </div>
+          </div>
+
+          <div class="field-grid two-up">
+            <label class="field">
+              <span>Item name</span>
+              <input id="item-name" name="itemName" type="text" placeholder="Noise-cancelling headphones" maxlength="80" autocomplete="off" required aria-describedby="item-name-error" />
+              <small class="field-error" id="item-name-error" aria-live="polite"></small>
+            </label>
+            <label class="field">
+              <span>Store <small>optional</small></span>
+              <input id="store-name" name="storeName" type="text" placeholder="Store name" maxlength="60" autocomplete="organization" />
+            </label>
+          </div>
+
+          <div class="field-grid two-up">
+            <label class="field">
+              <span>Item price <small>optional</small></span>
+              <div class="money-input">
+                <span aria-hidden="true">$</span>
+                <input id="item-price" name="itemPrice" type="number" min="0" max="1000000" step="0.01" inputmode="decimal" placeholder="89.00" aria-label="Item price in US dollars" />
+              </div>
+            </label>
+            <label class="field">
+              <span>Return window</span>
+              <div class="unit-input">
+                <input id="return-window" name="returnWindow" type="number" min="1" max="730" step="1" inputmode="numeric" value="30" required aria-describedby="return-window-help return-window-error" />
+                <span>days</span>
+              </div>
+              <small class="field-help" id="return-window-help">Use the number of days stated in the retailer's policy.</small>
+              <small class="field-error" id="return-window-error" aria-live="polite"></small>
+            </label>
+          </div>
+
+          <fieldset class="date-choice">
+            <legend>When does the window start?</legend>
+            <div class="segmented-control">
+              <label>
+                <input type="radio" name="dateType" value="Delivered" checked />
+                <span>Delivered</span>
+              </label>
+              <label>
+                <input type="radio" name="dateType" value="Purchased" />
+                <span>Purchased</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="field-grid two-up date-row">
+            <label class="field">
+              <span id="start-date-label">Delivery date</span>
+              <input id="start-date" name="startDate" type="date" required aria-describedby="start-date-error" />
+              <small class="field-error" id="start-date-error" aria-live="polite"></small>
+            </label>
+            <label class="field">
+              <span>Remind me</span>
+              <select id="reminder-days" name="reminderDays">
+                <option value="1">1 day before</option>
+                <option value="3" selected>3 days before</option>
+                <option value="7">1 week before</option>
+                <option value="14">2 weeks before</option>
+              </select>
+            </label>
+          </div>
+
+          <button class="primary-button" type="submit">
+            <span>Calculate my return date</span>
+            <span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+
+          <p class="policy-note">
+            ReturnBy counts forward the number of days you enter. Retailer policies can count days differently, start the clock at a different event, or exclude certain products. Always confirm the retailer's actual policy.
+          </p>
+        </form>
+
+        <aside class="result-panel" id="result-panel" aria-live="polite" aria-labelledby="result-heading">
+          <div class="empty-result" id="empty-result">
+            <div class="calendar-illustration" aria-hidden="true">
+              <span></span>
+              <strong>?</strong>
+            </div>
+            <h2>Your deadline will appear here.</h2>
+            <p>No email address, login, or receipt upload required.</p>
+          </div>
+
+          <div class="result-content" id="result-content" hidden>
+            <div class="result-topline">
+              <span class="result-status" id="result-status">Plenty of time</span>
+              <span class="result-store" id="result-store"></span>
+            </div>
+            <p class="result-kicker">Your estimated last day to return</p>
+            <h2 id="result-heading" class="deadline-date"><time id="deadline-time"></time></h2>
+            <p class="countdown" id="countdown"></p>
+
+            <div class="value-protected" id="value-protected" hidden>
+              <span>Purchase value you're tracking</span>
+              <strong id="protected-amount"></strong>
+            </div>
+
+            <div class="result-actions">
+              <button class="secondary-button" id="calendar-button" type="button">Add calendar reminder</button>
+              <button class="text-button" id="copy-button" type="button">Copy details</button>
+            </div>
+
+            <button class="save-button" id="save-button" type="button">
+              <span aria-hidden="true">＋</span> Save to this device
+            </button>
+
+            <p class="result-disclaimer">Estimate only. The retailer's published policy controls the actual deadline and eligibility.</p>
+
+            <div class="coffee-card">
+              <div>
+                <p>Did this help protect your purchase?</p>
+                <span>Keep ReturnBy free and private.</span>
+              </div>
+              <a href="https://buymeacoffee.com/divclass016" target="_blank" rel="noopener noreferrer">Buy me a coffee</a>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="saved-section" id="saved-section" aria-labelledby="saved-title" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Saved locally</p>
+            <h2 id="saved-title">My returns</h2>
+          </div>
+          <button class="text-button danger-text" id="clear-all-button" type="button">Clear all</button>
+        </div>
+        <p class="section-note">Saved returns stay in this browser. Clearing browser storage can remove them.</p>
+        <div class="saved-list" id="saved-list"></div>
+      </section>
+
+      <section class="how-it-works" id="how" aria-labelledby="how-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Simple by design</p>
+            <h2 id="how-title">A calmer way to remember.</h2>
+          </div>
+        </div>
+        <div class="principles-grid">
+          <article>
+            <span>01</span>
+            <h3>Calculate</h3>
+            <p>Turn a purchase or delivery date and the retailer's stated window into a clear estimated deadline.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Remember</h3>
+            <p>Download a reminder for the calendar app you already use—without sharing your purchase with ReturnBy.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Follow through</h3>
+            <p>Keep a private status list on this device until the refund arrives or you decide to keep the item.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="faq-section" id="faq" aria-labelledby="faq-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Common questions</p>
+            <h2 id="faq-title">Before you rely on the date.</h2>
+          </div>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>How does ReturnBy calculate the deadline?</summary>
+            <p>ReturnBy adds the number of days you enter to the purchase or delivery date you choose. That gives you an estimate to plan around. Retailers may count days differently, use a different starting event, or apply product-specific exceptions, so confirm the store's policy before relying on the result.</p>
+          </details>
+          <details>
+            <summary>Does ReturnBy upload or sell my purchase information?</summary>
+            <p>No. There is no account or receipt upload. If you save a return, the information is stored in your browser on this device. ReturnBy currently does not use analytics or tracking pixels.</p>
+          </details>
+          <details>
+            <summary>What does “Add calendar reminder” do?</summary>
+            <p>It downloads a standard calendar file with the estimated deadline and the reminder timing you selected. You choose whether to add that file to your calendar.</p>
+          </details>
+          <details>
+            <summary>Will ReturnBy tell me whether an item is actually eligible for return?</summary>
+            <p>No. ReturnBy helps with date tracking only. Final eligibility, refund method, fees, exclusions, and policy exceptions are controlled by the retailer.</p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>ReturnBy calculates estimates—not retailer guarantees.</p>
+      <div>
+        <span>Your saved return data stays in your browser.</span>
+        <a href="/privacy.html">Privacy</a>
+        <a href="https://buymeacoffee.com/divclass016" target="_blank" rel="noopener noreferrer">Support ReturnBy</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js?v=20260909-1" defer></script>
+  </body>
+</html>
