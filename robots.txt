@@ -1,0 +1,5 @@
+# ReturnBy
+User-agent: *
+Allow: /
+
+Sitemap: https://returnby-tool.netlify.app/sitemap.xml
