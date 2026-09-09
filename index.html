@@ -10,7 +10,7 @@
     <meta name="google-site-verification" content="KU4s3W5bjy81CBiQSl8nSk_-t20-QcciCeZDQrzYO9g" />
     <meta
       name="description"
-      content="Free return deadline calculator and refund tracker. Estimate a return-by date, add a calendar reminder, and save returns privately on your device—no signup required."
+      content="Free return deadline calculator and refund tracker. Estimate a return-by date, add a reminder, and save returns privately on your device."
     />
     <link rel="canonical" href="https://returnby-tool.netlify.app/" />
     <meta property="og:type" content="website" />
@@ -23,8 +23,8 @@
       content="Estimate a return deadline, add a reminder, and track refunds privately on your device. No signup or receipt upload."
     />
     <meta property="og:image" content="https://returnby-tool.netlify.app/og.png" />
-    <meta property="og:image:width" content="1536" />
-    <meta property="og:image:height" content="1024" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="ReturnBy return deadline calculator preview" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="ReturnBy — Free Return Deadline Calculator" />
@@ -33,6 +33,9 @@
       content="Estimate a return deadline, add a reminder, and track refunds privately on your device."
     />
     <meta name="twitter:image" content="https://returnby-tool.netlify.app/og.png" />
+    <meta name="twitter:image:alt" content="ReturnBy return deadline calculator preview" />
+    <meta name="application-name" content="ReturnBy" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css?v=20260909-1" />
     <title>Free Return Deadline Calculator & Refund Tracker | ReturnBy</title>
@@ -81,6 +84,30 @@
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "Yes. ReturnBy can download a calendar reminder file that you can add to the calendar app you already use."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Will ReturnBy tell me whether an item is actually eligible for return?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. ReturnBy helps track dates only. Final eligibility, refund method, fees, exclusions, and policy exceptions are controlled by the retailer."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What if the estimated deadline falls on a weekend or holiday?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "ReturnBy does not automatically move the date for weekends or holidays. Store hours, shipping cutoffs, and retailer policy wording can affect the real deadline."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does the item need to be shipped, received, or just started by the deadline?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "That depends on the retailer. Some policies require a return to be initiated by the deadline, some require a postmark, and others require the item to be received."
                 }
               }
             ]
@@ -146,8 +173,9 @@
               <span>Item price <small>optional</small></span>
               <div class="money-input">
                 <span aria-hidden="true">$</span>
-                <input id="item-price" name="itemPrice" type="number" min="0" max="1000000" step="0.01" inputmode="decimal" placeholder="89.00" aria-label="Item price in US dollars" />
+                <input id="item-price" name="itemPrice" type="number" min="0" max="1000000" step="0.01" inputmode="decimal" placeholder="89.00" aria-label="Item price in US dollars" aria-describedby="item-price-error" />
               </div>
+              <small class="field-error" id="item-price-error" aria-live="polite"></small>
             </label>
             <label class="field">
               <span>Return window</span>
@@ -308,6 +336,14 @@
           <details>
             <summary>Will ReturnBy tell me whether an item is actually eligible for return?</summary>
             <p>No. ReturnBy helps with date tracking only. Final eligibility, refund method, fees, exclusions, and policy exceptions are controlled by the retailer.</p>
+          </details>
+          <details>
+            <summary>What if the estimated deadline falls on a weekend or holiday?</summary>
+            <p>ReturnBy does not automatically move the date. Some retailers allow online initiation at any time, while store hours, shipping cutoffs, and policy wording can matter. Check the retailer's policy and start the return early when possible.</p>
+          </details>
+          <details>
+            <summary>Does the item need to be shipped, received, or just started by the deadline?</summary>
+            <p>That depends on the retailer. Some policies require you to start the return by the deadline, others require a postmark, and some require the item to arrive back. ReturnBy tracks the date you enter, so confirm what the retailer actually requires.</p>
           </details>
         </div>
       </section>
