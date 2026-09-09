@@ -141,8 +141,7 @@
       valid = false;
     }
     if (data.itemPriceText && (!Number.isFinite(data.itemPrice) || data.itemPrice < 0 || data.itemPrice > 1000000)) {
-      document.querySelector("#item-price").setAttribute("aria-invalid", "true");
-      showToast("Enter a valid item price");
+      setError("item-price", "item-price-error", "Enter a price from $0 to $1,000,000.");
       valid = false;
     }
     if (!Number.isInteger(data.returnWindow) || data.returnWindow < 1 || data.returnWindow > 730) {
