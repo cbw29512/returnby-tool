@@ -26,19 +26,7 @@ jobs:
         run: node scripts/verify-return-status.cjs
 
       - name: Verify privacy and site contracts
-        run: |
-          node -e "
-            const fs = require('fs');
-            const assert = require('assert/strict');
-            const html = fs.readFileSync('index.html', 'utf8');
-            const privacy = fs.readFileSync('privacy.html', 'utf8');
-            assert.match(html, /id=\"return-form\"/);
-            assert.match(html, /id=\"saved-list\"/);
-            assert.match(html, /id=\"calendar-button\"/);
-            assert.match(html, /https:\/\/returnby-tool\.netlify\.app\//);
-            assert.match(privacy, /local.storage|local storage/i);
-            console.log('PASS: calculator, saved list, calendar and local privacy');
-          "
+        run: node scripts/verify-site.cjs
 
       - name: Check clean patch
         run: git diff --check HEAD~1 HEAD || git diff --check
