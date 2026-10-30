@@ -1,4 +1,7 @@
 [build]
+  # Run the same zero-dependency release checks during Netlify previews and production.
+  # This remains operational when GitHub private-repo hosted runners are unavailable.
+  command = "node --check app.js && node scripts/verify-return-status.cjs && node scripts/verify-site.cjs"
   publish = "."
 
 [[headers]]
