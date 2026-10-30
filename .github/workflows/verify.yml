@@ -1,0 +1,32 @@
+name: ReturnBy Quality Gate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Check application JavaScript syntax
+        run: node --check app.js
+
+      - name: Verify calendar and saved-return behavior
+        env:
+          TZ: America/New_York
+        run: node scripts/verify-return-status.cjs
+
+      - name: Verify privacy and site contracts
+        run: node scripts/verify-site.cjs
+
+      - name: Check clean patch
+        run: git diff --check HEAD~1 HEAD || git diff --check

@@ -96,11 +96,37 @@
   });
 
   savedList.addEventListener("change", (event) => {
-    const select = event.target.closest("select[data-id]");
-    if (!select) return;
-    const saved = loadSaved().map((item) => item.id === select.dataset.id ? { ...item, status: select.value } : item);
-    if (persistSaved(saved)) showToast("Status updated");
-    else showToast("This browser blocked local saving");
+    try {
+      const select = event.target.closest("select[data-id]");
+      if (!select) return;
+      const saved = loadSaved();
+      const existing = saved.find((item) => item.id === select.dataset.id);
+      if (!existing) {
+        console.error("ReturnBy: saved return not found for status update", select.dataset.id);
+        showToast("Return not found — reload and try again");
+        return;
+      }
+      const updated = saved.map((item) =>
+        item.id === existing.id ? { ...item, status: select.value } : item);
+      if (!persistSaved(updated)) {
+        // Do not show a status that was never successfully saved.
+        select.value = existing.status;
+        showToast("This browser blocked local saving");
+        return;
+      }
+      // Update only the neighboring live text; rebuilding the whole saved
+      // list would destroy focus on the keyboard-accessible status dropdown.
+      const dueText = select.closest(".saved-card")?.querySelector(".saved-deadline span");
+      if (dueText) {
+        const deadline = parseLocalDate(existing.deadline);
+        const daysLeft = differenceInCalendarDays(deadline, startOfToday());
+        dueText.textContent = savedDeadlineMessage(select.value, daysLeft);
+      }
+      showToast("Status updated");
+    } catch (error) {
+      console.error("ReturnBy: saved status update failed", error);
+      showToast("Unable to update status — reload and try again");
+    }
   });
 
   savedList.addEventListener("click", (event) => {
@@ -242,7 +268,8 @@
       const dueDate = document.createElement("strong");
       dueDate.textContent = formatDate(deadline, { month: "short", day: "numeric", year: "numeric" });
       const dueText = document.createElement("span");
-      dueText.textContent = daysLeft < 0 ? `${Math.abs(daysLeft)}d past estimate` : daysLeft === 0 ? "Estimated deadline today" : `${daysLeft}d remaining`;
+      dueText.textContent = savedDeadlineMessage(item.status, daysLeft);
+      dueText.setAttribute("aria-live", "polite");
       due.append(dueDate, dueText);
 
       const status = document.createElement("select");
@@ -267,6 +294,24 @@
       card.append(identity, due, status, remove);
       savedList.appendChild(card);
     });
+  }
+
+  // SavedReturn state: completed returns and returns already in progress
+  // must not be presented as actionable missed deadlines.
+  function savedDeadlineMessage(status, daysLeft) {
+    try {
+      if (status === "Refund received") return "Refund received — closed";
+      if (status === "Keeping it") return "Keeping item — closed";
+      if (status === "Waiting for refund") return "Awaiting refund";
+      if (status === "Return started") return "Return in progress";
+      if (!Number.isInteger(daysLeft)) throw new RangeError("Invalid deadline countdown");
+      if (daysLeft < 0) return `${Math.abs(daysLeft)}d past estimate`;
+      if (daysLeft === 0) return "Estimated deadline today";
+      return `${daysLeft}d remaining`;
+    } catch (error) {
+      console.error("ReturnBy: cannot display saved deadline status", error);
+      return "Check retailer's return policy";
+    }
   }
 
   function loadSaved() {
