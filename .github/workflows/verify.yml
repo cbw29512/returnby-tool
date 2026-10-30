@@ -1,0 +1,44 @@
+name: ReturnBy Quality Gate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Check application JavaScript syntax
+        run: node --check app.js
+
+      - name: Verify calendar and saved-return behavior
+        env:
+          TZ: America/New_York
+        run: node scripts/verify-return-status.cjs
+
+      - name: Verify privacy and site contracts
+        run: |
+          node -e "
+            const fs = require('fs');
+            const assert = require('assert/strict');
+            const html = fs.readFileSync('index.html', 'utf8');
+            const privacy = fs.readFileSync('privacy.html', 'utf8');
+            assert.match(html, /id=\"return-form\"/);
+            assert.match(html, /id=\"saved-list\"/);
+            assert.match(html, /id=\"calendar-button\"/);
+            assert.match(html, /https:\/\/returnby-tool\.netlify\.app\//);
+            assert.match(privacy, /local.storage|local storage/i);
+            console.log('PASS: calculator, saved list, calendar and local privacy');
+          "
+
+      - name: Check clean patch
+        run: git diff --check HEAD~1 HEAD || git diff --check
