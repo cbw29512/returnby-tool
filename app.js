@@ -242,7 +242,7 @@
       const dueDate = document.createElement("strong");
       dueDate.textContent = formatDate(deadline, { month: "short", day: "numeric", year: "numeric" });
       const dueText = document.createElement("span");
-      dueText.textContent = daysLeft < 0 ? `${Math.abs(daysLeft)}d past estimate` : daysLeft === 0 ? "Estimated deadline today" : `${daysLeft}d remaining`;
+      dueText.textContent = savedDeadlineMessage(item.status, daysLeft);
       due.append(dueDate, dueText);
 
       const status = document.createElement("select");
@@ -267,6 +267,24 @@
       card.append(identity, due, status, remove);
       savedList.appendChild(card);
     });
+  }
+
+  // SavedReturn state: completed returns and returns already in progress
+  // must not be presented as actionable missed deadlines.
+  function savedDeadlineMessage(status, daysLeft) {
+    try {
+      if (status === "Refund received") return "Refund received — closed";
+      if (status === "Keeping it") return "Keeping item — closed";
+      if (status === "Waiting for refund") return "Awaiting refund";
+      if (status === "Return started") return "Return in progress";
+      if (!Number.isInteger(daysLeft)) throw new RangeError("Invalid deadline countdown");
+      if (daysLeft < 0) return `${Math.abs(daysLeft)}d past estimate`;
+      if (daysLeft === 0) return "Estimated deadline today";
+      return `${daysLeft}d remaining`;
+    } catch (error) {
+      console.error("ReturnBy: cannot display saved deadline status", error);
+      return "Check retailer's return policy";
+    }
   }
 
   function loadSaved() {
